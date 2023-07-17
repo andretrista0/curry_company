@@ -1,5 +1,4 @@
 import pandas as pd
-!pip install folium
 import folium
 import plotly.express as px
 import plotly.graph_objects as go
