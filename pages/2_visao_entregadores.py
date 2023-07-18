@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime
 import folium
 import plotly.express as px
 import plotly.graph_objects as go
@@ -95,7 +96,7 @@ st.sidebar.markdown('# Cury Company')
 st.sidebar.markdown('## Fastest Delivery in Town')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('### Selecione um periodo')
-date_slider = st.sidebar.slider('Qual o periodo?', value=pd.datetime(2022,3,11), min_value=pd.datetime(2022,2,11), max_value=pd.datetime(2022,4,6), format='DD-MM-YYYY')
+date_slider = st.sidebar.slider('Qual o periodo?', value=datetime(2022,3,11), min_value=datetime(2022,2,11), max_value=datetime(2022,4,6), format='DD-MM-YYYY')
 st.sidebar.markdown("""---""")
 
 st.sidebar.markdown('### Selecione a condição do trânsito')
