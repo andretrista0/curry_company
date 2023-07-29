@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 import folium
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,7 +8,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_folium import folium_static
 
-st.set_page_config(page_title='Visão Entregadores', layout='wide')
+st.set_page_config(page_title='Visão dos Entregadores', layout='wide')
 
 # =========================
 # Funções
@@ -53,6 +52,9 @@ def clean_code(df1):
     df1['Time_taken(min)'] = df1['Time_taken(min)'].apply(lambda x: x.split('(min) ')[1])
     df1['Time_taken(min)'] = df1['Time_taken(min)'].astype(int)
 
+    # Removendo a parte fixa "conditions "
+    df1['Weatherconditions'] = df1['Weatherconditions'].str.replace('conditions ', '')
+    
     #Resetando index
     df1 = df1.reset_index( drop=True )
     
@@ -61,8 +63,8 @@ def clean_code(df1):
 # DESENVOLVIMENTO DOS DADOS PARA GRÁFICOS E TABELAS
 
 def avaliacao_medio_desvio(df1, cols, group):
-    df1_avaliacao_medio_desvio = df1.loc[:,cols].groupby(group).agg(['mean', 'std'])
-    df1_avaliacao_medio_desvio.columns = ['Avaliacao_medio','Avaliacao_desvio']
+    df1_avaliacao_medio_desvio = df1.loc[:,cols].groupby(group).agg(['mean', 'std']).round(2)
+    df1_avaliacao_medio_desvio.columns = ['Avaliação Média','Desvio Padrão']
     df1_avaliacao_medio_desvio = df1_avaliacao_medio_desvio.reset_index()
     return df1_avaliacao_medio_desvio
             
@@ -72,7 +74,9 @@ def top_10_entregadores(df1, top_asc):
     df1_rapidos_cidade_metropolitian = df1_rapidos_cidade.loc[df1_rapidos_cidade['City']=='Metropolitian',:].head(10)
     df1_rapidos_cidade_semiurban = df1_rapidos_cidade.loc[df1_rapidos_cidade['City']=='Semi-Urban',:].head(10)
     df_top_10 = pd.concat([df1_rapidos_cidade_urban, df1_rapidos_cidade_metropolitian, df1_rapidos_cidade_semiurban]).reset_index(drop=True)
-    return df_top_10
+    df_top_10.rename(columns={'City':'Cidade','Delivery_person_ID':'ID do Entregador','Time_taken(min)':'Tempo Médio (min)'},inplace=True)
+    df_top_10.index = range(1, len(df_top_10) + 1)
+    return df_top_10.head(10)
 
 # =========================
 # Estrutura Lógica do código
@@ -96,7 +100,7 @@ st.sidebar.markdown('# Cury Company')
 st.sidebar.markdown('## Fastest Delivery in Town')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('### Selecione um periodo')
-date_slider = st.sidebar.slider('Qual o periodo?', value=datetime(2022,3,11), min_value=datetime(2022,2,11), max_value=datetime(2022,4,6), format='DD-MM-YYYY')
+date_slider = st.sidebar.slider('Qual o periodo?', value=pd.datetime(2022,3,11), min_value=pd.datetime(2022,2,11), max_value=pd.datetime(2022,4,6), format='DD-MM-YYYY')
 st.sidebar.markdown("""---""")
 
 st.sidebar.markdown('### Selecione a condição do trânsito')
@@ -138,38 +142,44 @@ with st.container():
     
 with st.container():
     st.markdown("""---""")
-    st.header('Avaliação dos Entregadores')
+    st.markdown('#### Avaliação dos Entregadores')
     
     col1, col2 = st.columns(2)
     with col1:
         st.markdown('###### Avaliação média por entregador')
-        df1_avaliacao_media = df1.loc[:,['Delivery_person_ID','Delivery_person_Ratings']].groupby(['Delivery_person_ID']).mean().reset_index()
+        df1_avaliacao_media = df1.loc[:,['Delivery_person_ID','Delivery_person_Ratings']].groupby(['Delivery_person_ID']).mean().round(2).reset_index()
+        df1_avaliacao_media.rename(columns={'Delivery_person_ID':'ID do Entregador', 'Delivery_person_Ratings':'Nota do Entregador'}, inplace=True)
+        df1_avaliacao_media.index = range(1, len(df1_avaliacao_media) + 1)
         st.dataframe(df1_avaliacao_media)
 
     with col2:
         st.markdown('###### Avaliação média e desvio padrão por tráfego')
         df1_avaliacao_medio_desvio_trafego = avaliacao_medio_desvio(df1, cols=['Delivery_person_Ratings','Road_traffic_density'], group = ['Road_traffic_density'])
+        df1_avaliacao_medio_desvio_trafego.rename(columns={'Road_traffic_density':'Densidade do Trânsito'}, inplace=True)
+        df1_avaliacao_medio_desvio_trafego.index = range(1, len(df1_avaliacao_medio_desvio_trafego) + 1)
         st.dataframe(df1_avaliacao_medio_desvio_trafego)
         
     
         st.markdown('###### Avaliação média e desvio padrão por clima')
         df1_avaliacao_medio_desvio_clima = avaliacao_medio_desvio(df1, cols=['Delivery_person_Ratings','Weatherconditions'], group = ['Weatherconditions'])
+        df1_avaliacao_medio_desvio_clima.rename(columns={'Weatherconditions':'Clima'},inplace=True)
+        df1_avaliacao_medio_desvio_clima.index = range(1, len(df1_avaliacao_medio_desvio_clima) + 1)
         st.dataframe(df1_avaliacao_medio_desvio_clima)
 
   
     
 with st.container():
     st.markdown("""---""")
-    st.header('Velocidade de Entrega')
+    st.markdown('#### Velocidade de Entrega')
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown('###### Top 10: mais rápidos')
+        st.markdown('###### Top 10 mais rápidos')
         df_top_10_rapidos = top_10_entregadores(df1, top_asc=True)
         st.dataframe(df_top_10_rapidos)
         
             
     with col2:
-        st.markdown('###### Top 10: mais lentos')
+        st.markdown('###### Top 10 mais lentos')
         df_top_10_lentos = top_10_entregadores(df1, top_asc=False)
         st.dataframe(df_top_10_lentos)
     
