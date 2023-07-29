@@ -138,7 +138,7 @@ df1 = df1.loc[filtro_transito, :]
 # Streamlit - Layout
 # =========================
 
-st.header('Visão Geral da Empresa')
+st.header('Visão da Empresa')
 
 tab1, tab2, tab3 = st.tabs(['Visão Gerencial', 'Visão Tática', 'Visão Geográfica'])
 
