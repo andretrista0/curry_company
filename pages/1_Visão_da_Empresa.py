@@ -42,9 +42,9 @@ def clean_code(df1):
     #Modificando tipo dos dados
     df1['Delivery_person_Age'] = df1['Delivery_person_Age'].astype( int )
     df1['Delivery_person_Ratings'] = df1['Delivery_person_Ratings'].astype( float )
-    df1['Order_Date'] = pd.to_datetime(df1['Order_Date'], format='%d-%m-%Y')
-    df1['Order_Date'] = pd.to_datetime(df1['Order_Date'], format='%H:%M:%S')
-    df1['Time_Order_picked'] = pd.to_datetime(df1['Time_Order_picked'], format='%H:%M:%S')
+    df1['Order_Date'] = pd.datetime(df1['Order_Date'], format='%d-%m-%Y')
+    df1['Order_Date'] = pd.datetime(df1['Order_Date'], format='%H:%M:%S')
+    df1['Time_Order_picked'] = pd.datetime(df1['Time_Order_picked'], format='%H:%M:%S')
     df1['multiple_deliveries'] = df1['multiple_deliveries'].astype( int )
 
     # Removendo parte do texto '(min) ' da coluna Time_taken(min)
