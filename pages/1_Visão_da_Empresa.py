@@ -43,9 +43,9 @@ def clean_code(df1):
     #Modificando tipo dos dados
     df1['Delivery_person_Age'] = df1['Delivery_person_Age'].astype( int )
     df1['Delivery_person_Ratings'] = df1['Delivery_person_Ratings'].astype( float )
-    df1['Order_Date'] = datetime(df1['Order_Date'], format='%d-%m-%Y')
-    df1['Order_Date'] = datetime(df1['Order_Date'], format='%H:%M:%S')
-    df1['Time_Order_picked'] = datetime(df1['Time_Order_picked'], format='%H:%M:%S')
+    df1['Order_Date'] = datetime.strptime(df1['Order_Date'], format='%d-%m-%Y')
+    df1['Order_Date'] = datetime.strptime(df1['Order_Date'], format='%H:%M:%S')
+    df1['Time_Order_picked'] = datetime.strptime(df1['Time_Order_picked'], format='%H:%M:%S')
     df1['multiple_deliveries'] = df1['multiple_deliveries'].astype( int )
 
     # Removendo parte do texto '(min) ' da coluna Time_taken(min)
@@ -121,7 +121,7 @@ st.sidebar.markdown('# Cury Company')
 st.sidebar.markdown('## Fastest Delivery in Town')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('### Selecione um periodo')
-date_slider = st.sidebar.slider('Qual o periodo?', value=datetime(2022,3,11), min_value=datetime(2022,2,11), max_value=datetime(2022,4,6), format='DD-MM-YYYY')
+date_slider = st.sidebar.slider('Qual o periodo?', value=datetime.strptime(2022,3,11), min_value=datetime.strptime(2022,2,11), max_value=datetime.strptime(2022,4,6), format='DD-MM-YYYY')
 st.sidebar.markdown("""---""")
 
 st.sidebar.markdown('### Selecione a condição do trânsito')
