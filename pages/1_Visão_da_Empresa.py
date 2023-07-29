@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 import folium
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,7 +8,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_folium import folium_static
 
-st.set_page_config(page_title='Visão Empresa', layout='wide')
+st.set_page_config(page_title='Visão da Empresa', layout='wide')
 
 # =========================
 # Funções
@@ -61,24 +60,24 @@ def clean_code(df1):
 
 def pedidos_dia(df1):
     df1_id_dia = df1.loc[:,['ID', 'Order_Date']].groupby(['Order_Date']).count().reset_index()
-    fig = px.bar(df1_id_dia, x='Order_Date', y='ID')
+    fig = px.bar(df1_id_dia, x='Order_Date', y='ID', labels={'Order_Date':'Data do Pedido','ID':'Quantidade de Pedidos' })
     return fig
 
 def pedidos_trafego(df1):
     df1_id_trafego = df1.loc[:,['ID', 'Road_traffic_density']].groupby(['Road_traffic_density']).count().reset_index()
     df1_id_trafego['Porcentagem'] = (df1_id_trafego['ID']*100) / sum(df1_id_trafego['ID'])
-    fig = px.pie (df1_id_trafego, values='Porcentagem', names='Road_traffic_density')
+    fig = px.pie (df1_id_trafego, values='Porcentagem', names='Road_traffic_density', labels={'Road_traffic_density':'Densidade do Trânsito'})
     return fig
 
 def pedidos_cidade_trafego(df1):
     df1_id_cidade_trafego = df1.loc[:,['ID', 'City', 'Road_traffic_density']].groupby(['City', 'Road_traffic_density']).count().reset_index()
-    fig = px.bar(df1_id_cidade_trafego, x='City', y='ID', color='Road_traffic_density', barmode='group')
+    fig = px.bar(df1_id_cidade_trafego, x='City', y='ID', color='Road_traffic_density', barmode='group', labels={'Road_traffic_density':'Densidade do Trânsito', 'City':'Cidade','ID':'Quantidade de Pedidos'})
     return fig
 
 def pedidos_semana(df1):
     df1['Order_Week'] = df1['Order_Date'].dt.strftime('%U')
     df1_id_dia_semana = df1.loc[:,['ID', 'Order_Week']].groupby(['Order_Week']).count().reset_index()
-    fig = px.line(df1_id_dia_semana, x='Order_Week', y='ID')
+    fig = px.line(df1_id_dia_semana, x='Order_Week', y='ID', labels={'Order_Week':'Semana do Pedido','ID':'Quantidade de Pedidos'})
     return fig
 
 def pedidos_entregador_semana(df1):
@@ -86,7 +85,7 @@ def pedidos_entregador_semana(df1):
     df_entregador_semana = df1.loc[:,['Delivery_person_ID', 'Order_Week']].groupby(['Order_Week']).nunique().reset_index()
     df_pedido_entregador_semana = pd.merge(df_pedido_semana, df_entregador_semana, how='inner')
     df_pedido_entregador_semana['Pedido_por_Entregador'] = df_pedido_entregador_semana['ID'] / df_pedido_entregador_semana['Delivery_person_ID']
-    fig = px.line(df_pedido_entregador_semana, x='Order_Week', y='Pedido_por_Entregador')
+    fig = px.line(df_pedido_entregador_semana, x='Order_Week', y='Pedido_por_Entregador', labels={'Order_Week':'Semana do Pedido','Pedido_por_Entregador':'Quantidade de Pedidos por Entregador'})
     return fig
 
 def mapa_cidades(df1):
@@ -114,8 +113,6 @@ df1 = clean_code(df)
 # Streamlit - Barra Lateral
 # =========================
 
-st.header('Visão Geral da Empresa')
-
 image = Image.open('logo.png')
 st.sidebar.image(image, width=128)
 
@@ -123,7 +120,7 @@ st.sidebar.markdown('# Cury Company')
 st.sidebar.markdown('## Fastest Delivery in Town')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('### Selecione um periodo')
-date_slider = st.sidebar.slider('Qual o periodo?', value=datetime(2022,3,11), min_value=datetime(2022,2,11), max_value=datetime(2022,4,6), format='DD-MM-YYYY')
+date_slider = st.sidebar.slider('Qual o periodo?', value=pd.datetime(2022,3,11), min_value=pd.datetime(2022,2,11), max_value=pd.datetime(2022,4,6), format='DD-MM-YYYY')
 st.sidebar.markdown("""---""")
 
 st.sidebar.markdown('### Selecione a condição do trânsito')
@@ -141,11 +138,13 @@ df1 = df1.loc[filtro_transito, :]
 # Streamlit - Layout
 # =========================
 
+st.header('Visão Geral da Empresa')
+
 tab1, tab2, tab3 = st.tabs(['Visão Gerencial', 'Visão Tática', 'Visão Geográfica'])
 
 with tab1:
     with st.container():
-        st.markdown('# Pedidos por dia') 
+        st.markdown('#### Pedidos por dia') 
         fig = pedidos_dia(df1)
         st.plotly_chart(fig, use_container_width=True)
     
@@ -153,28 +152,28 @@ with tab1:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown('# Pedidos: tráfego') 
+            st.markdown('#### Pedidos: tráfego') 
             fig = pedidos_trafego(df1)
             st.plotly_chart(fig, use_container_width=True)
          
         with col2:
-            st.markdown('# Pedidos: cidade e tráfego') 
+            st.markdown('#### Pedidos: cidade e tráfego') 
             fig = pedidos_cidade_trafego(df1)
             st.plotly_chart(fig, use_container_width=True)
   
     
 with tab2:
-    st.markdown('# Pedidos por semana')
+    st.markdown('#### Pedidos por semana')
     fig = pedidos_semana(df1)
     st.plotly_chart(fig, use_container_width=True)
     
-    st.markdown('# Pedidos por entregador por semana')
+    st.markdown('#### Pedidos por entregador por semana')
     fig = pedidos_entregador_semana(df1)
     st.plotly_chart(fig, use_container_width=True)
     
     
 with tab3:
-    st.markdown('# Mapa das cidades')
+    st.markdown('#### Mapa das cidades')
     mapa = mapa_cidades(df1)
     folium_static(mapa, width=750, height=450)
 
