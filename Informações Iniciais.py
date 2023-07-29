@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-st.set_page_config(page_title="Home")
+st.set_page_config(page_title="Informações Iniciais")
 
 image = Image.open('logo.png')
 st.sidebar.image(image, width=128)
