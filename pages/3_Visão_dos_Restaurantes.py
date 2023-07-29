@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 import folium
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,7 +8,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_folium import folium_static
 
-st.set_page_config(page_title='Visão Restaurante', layout='wide')
+st.set_page_config(page_title='Visão dos Restaurantes', layout='wide')
 
 # =========================
 # Funções
@@ -90,12 +89,18 @@ def media_desvio_cidade(df1):
     fig = go.Figure()
     fig.add_trace(go.Bar(name='Control', x=df1_media_desvio_cidade['City'], y=df1_media_desvio_cidade['Tempo_medio'], error_y=dict(type='data', array=df1_media_desvio_cidade['Tempo_desvio'])))
     fig.update_layout(barmode='group')
+    # Adicionar título ao eixo x
+    fig.update_xaxes(title_text='Cidades')
+    # Adicionar título ao eixo y
+    fig.update_yaxes(title_text='Tempo Médio (minutos)')
     return fig
 
 def media_desvio_pedido(df1):
-    df1_media_desvio_pedido = df1.loc[:,['Time_taken(min)','City', 'Type_of_order']].groupby(['City','Type_of_order']).agg(['mean', 'std'])
+    df1_media_desvio_pedido = df1.loc[:,['Time_taken(min)','City', 'Type_of_order']].groupby(['City','Type_of_order']).agg(['mean', 'std']).round(2)
     df1_media_desvio_pedido.columns = ['Tempo_medio','Tempo_desvio']
     df1_media_desvio_pedido = df1_media_desvio_pedido.reset_index()
+    df1_media_desvio_pedido.rename(columns={'City':'Cidade','Type_of_order':'Tipo de Pedido','Tempo_medio': 'Tempo Médio','Tempo_desvio':'Desvio Padrão'},inplace=True)
+    df1_media_desvio_pedido.index = range(1, len(df1_media_desvio_pedido)+1) 
     return df1_media_desvio_pedido
 
 def media_desvio_trafego(df1):
@@ -127,7 +132,7 @@ st.sidebar.markdown('# Cury Company')
 st.sidebar.markdown('## Fastest Delivery in Town')
 st.sidebar.markdown("""---""")
 st.sidebar.markdown('### Selecione um periodo')
-date_slider = st.sidebar.slider('Qual o periodo?', value=datetime(2022,3,11), min_value=datetime(2022,2,11), max_value=datetime(2022,4,6), format='DD-MM-YYYY')
+date_slider = st.sidebar.slider('Qual o periodo?', value=pd.datetime(2022,3,11), min_value=pd.datetime(2022,2,11), max_value=pd.datetime(2022,4,6), format='DD-MM-YYYY')
 st.sidebar.markdown("""---""")
 
 st.sidebar.markdown('### Selecione a condição do trânsito')
@@ -146,13 +151,14 @@ df1 = df1.loc[filtro_transito, :]
 # =========================
 
 with st.container():
-    st.header('Visão Geral dos Restaurantes')
+    st.header('Visão dos Restaurantes')
     col1, col2, col3, col4, col5, col6 = st.columns(6)
       
         
     with col1:
         qtde_entregadores = df1['Delivery_person_ID'].nunique()
-        col1.metric(' Entregadores Únicos', qtde_entregadores)
+        formatacao = "{:,.0f}".format(qtde_entregadores)
+        col1.metric(' Entregadores Únicos', formatacao)
     
     with col2:
         distancia = distancia_media(df1, figure=False)
@@ -177,7 +183,7 @@ with st.container():
         
 with st.container():
     st.markdown("""---""")
-    st.header('Tempo Medio de entrega por cidade')
+    st.markdown('#### Tempo médio de entrega por cidade')
     col1, col2 = st.columns(2, gap='large')
     
     with col1:
@@ -191,7 +197,7 @@ with st.container():
 
 with st.container():
     st.markdown("""---""")
-    st.header('Distribuição do tempo')
+    st.markdown('#### Distribuição do tempo')
     
     col1, col2 = st.columns(2, gap='large')
     with col1:  
