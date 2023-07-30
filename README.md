@@ -63,30 +63,30 @@ Essas premissas formam a base para a análise dos dados e fornecerão insights v
 Para criar um painel estratégico que abranja as três principais visões do modelo de negócio da Cury Company, foram utilizadas métricas relevantes para cada uma delas. Abaixo está o conjunto de métricas representando cada visão:
 
 #### Visão do Crescimento da Empresa:
-a. Quantidade de pedidos por dia.
-b. Porcentagem de pedidos por condições de trânsito.
-c. Quantidade de pedidos por tipo e por cidade.
-d. Pedidos por semana.
-e. Quantidade de pedidos por tipo de entrega.
-f. Quantidade de pedidos por condições de trânsito e tipo de cidade.
+- Quantidade de pedidos por dia.
+- Porcentagem de pedidos por condições de trânsito.
+- Quantidade de pedidos por tipo e por cidade.
+- Pedidos por semana.
+- Quantidade de pedidos por tipo de entrega.
+- Quantidade de pedidos por condições de trânsito e tipo de cidade.
 
 #### Visão do Crescimento dos Restaurantes:
-a. Quantidade de pedidos únicos.
-b. Distância média percorrida.
-c. Tempo médio de entrega durante festivais e dias normais.
-d. Desvio padrão do tempo de entrega durante festivais e dias normais.
-e. Tempo de entrega médio por cidade.
-f. Distribuição do tempo médio de entrega por cidade.
-g. Tempo médio de entrega por tipo de pedido.
+- Quantidade de pedidos únicos.
+- Distância média percorrida.
+- Tempo médio de entrega durante festivais e dias normais.
+- Desvio padrão do tempo de entrega durante festivais e dias normais.
+- Tempo de entrega médio por cidade.
+- Distribuição do tempo médio de entrega por cidade.
+- Tempo médio de entrega por tipo de pedido.
 
 #### Visão do Crescimento dos Entregadores:
-a. Idade do entregador mais velho e do mais novo.
-b. Avaliação do melhor e do pior veículo.
-c. Avaliação média por entregador.
-d. Avaliação média por condições de trânsito.
-e. Avaliação média por condições climáticas.
-f. Tempo médio do entregador mais rápido.
-g. Tempo médio do entregador mais rápido por cidade.
+- Idade do entregador mais velho e do mais novo.
+- Avaliação do melhor e do pior veículo.
+- Avaliação média por entregador.
+- Avaliação média por condições de trânsito.
+- Avaliação média por condições climáticas.
+- Tempo médio do entregador mais rápido.
+- Tempo médio do entregador mais rápido por cidade.
 
 Essas métricas foram cuidadosamente selecionadas para fornecer ao CEO uma visão abrangente do crescimento da empresa, dos restaurantes parceiros e dos entregadores que utilizam o aplicativo. O painel estratégico permitirá ao CEO tomar decisões informadas e identificar áreas de oportunidade para aprimorar o desempenho do negócio em cada uma dessas perspectivas.
 
