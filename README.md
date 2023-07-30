@@ -10,31 +10,31 @@ O objetivo deste projeto é apresentar ao CEO as seguintes métricas de crescime
 
 #### Métricas para o lado da empresa:
 
-Quantidade de pedidos por dia.
-Quantidade de pedidos por semana.
-Distribuição dos pedidos de acordo com o tipo de tráfego.
-Comparação do volume de pedidos por cidade e tipo de tráfego.
-Quantidade de pedidos por entregador por semana.
-Localização central de cada cidade, segmentada por tipo de tráfego.
+- Quantidade de pedidos por dia.
+- Quantidade de pedidos por semana.
+- Distribuição dos pedidos de acordo com o tipo de tráfego.
+- Comparação do volume de pedidos por cidade e tipo de tráfego.
+- Quantidade de pedidos por entregador por semana.
+- Localização central de cada cidade, segmentada por tipo de tráfego.
 
 #### Métricas para o lado dos entregadores:
 
-Faixa etária dos entregadores (menor e maior idade).
-Condição dos veículos (pior e melhor condição).
-Avaliação média por entregador.
-Avaliação média e desvio padrão por tipo de tráfego.
-Avaliação média e desvio padrão de acordo com as condições climáticas.
-Top 10 dos entregadores mais rápidos por cidade.
-Top 10 dos entregadores mais lentos por cidade.
+- Faixa etária dos entregadores (menor e maior idade).
+- Condição dos veículos (pior e melhor condição).
+- Avaliação média por entregador.
+- Avaliação média e desvio padrão por tipo de tráfego.
+- Avaliação média e desvio padrão de acordo com as condições climáticas.
+- Top 10 dos entregadores mais rápidos por cidade.
+- Top 10 dos entregadores mais lentos por cidade.
 
 #### Métricas para o lado dos restaurantes:
 
-Quantidade de entregadores únicos.
-Distância média entre os restaurantes e os locais de entrega.
-Tempo médio e desvio padrão de entrega por cidade.
-Tempo médio e desvio padrão de entrega por cidade e tipo de pedido.
-Tempo médio e desvio padrão de entrega por cidade e tipo de tráfego.
-Tempo médio de entrega durante os Festivais.
+- Quantidade de entregadores únicos.
+- Distância média entre os restaurantes e os locais de entrega.
+- Tempo médio e desvio padrão de entrega por cidade.
+- Tempo médio e desvio padrão de entrega por cidade e tipo de pedido.
+- Tempo médio e desvio padrão de entrega por cidade e tipo de tráfego.
+- Tempo médio de entrega durante os Festivais.
 
 O objetivo final é apresentar um conjunto de gráficos e tabelas que mostrem essas métricas de forma clara e compreensível para o CEO. Isso permitirá que ele acompanhe o crescimento dos negócios da empresa e tome decisões estratégicas informadas.
 
