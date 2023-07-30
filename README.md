@@ -1,5 +1,6 @@
 # Projeto Curry Company
 
+
 #### PROBLEMA DE NEGÓCIO
 
 A Cury Company é uma empresa de tecnologia que desenvolveu um aplicativo que conecta restaurantes, entregadores e pessoas, permitindo que os clientes façam pedidos de refeições de restaurantes cadastrados e os recebam em casa através dos entregadores também cadastrados no aplicativo.
@@ -90,6 +91,7 @@ Para criar um painel estratégico que abranja as três principais visões do mod
 
 Essas métricas foram cuidadosamente selecionadas para fornecer ao CEO uma visão abrangente do crescimento da empresa, dos restaurantes parceiros e dos entregadores que utilizam o aplicativo. O painel estratégico permitirá ao CEO tomar decisões informadas e identificar áreas de oportunidade para aprimorar o desempenho do negócio em cada uma dessas perspectivas.
 
+
 #### TOP 3 INSIGHTS DE DADOS
 
 #### Sazonalidade Diária nos Pedidos: 
@@ -108,7 +110,8 @@ PRODUTO FINAL DO PROJETO
 
 Para acessar o painel, basta utilizar o seguinte link: https://currycompany.streamlit.app/
 
-#### CONCLUSÃO:
+
+#### CONCLUSÃO
 
 O projeto foi desenvolvido com o objetivo de criar um conjunto de gráficos e tabelas para exibir as métricas de crescimento da Cury Company de forma clara e compreensível para o CEO. Através do painel online hospedado na nuvem, o CEO agora tem acesso fácil e interativo a informações valiosas que refletem as três principais visões do modelo de negócio da empresa: crescimento da empresa, crescimento dos restaurantes e crescimento dos entregadores.
 
@@ -118,7 +121,8 @@ No entanto, vale ressaltar que o painel oferece uma variedade de outras métrica
 
 Em suma, o projeto proporcionou à Cury Company uma ferramenta valiosa para acompanhar e compreender o desempenho do negócio de forma mais abrangente e informada. Com uma visão mais clara das métricas de crescimento, o CEO estará melhor equipado para tomar decisões estratégicas, impulsionar a eficiência operacional e aprimorar a experiência do cliente, garantindo o contínuo sucesso da empresa no mercado de tecnologia e delivery.
 
-#### PRÓXIMOS PASSOS:
+
+#### PRÓXIMOS PASSOS
 
 Após a conclusão do projeto e a implementação do painel online, existem várias ações que podem ser consideradas para aprimorar ainda mais a ferramenta e obter insights adicionais. 
 
